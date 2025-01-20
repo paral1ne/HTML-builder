@@ -16,8 +16,12 @@ function createTextFIle(fileName) {
     writeStream.write(data);
   });
 
+  process.on('SIGINT', () => {
+    process.exit();
+  });
+
   process.on('exit', () => {
-    stdout.write('git');
+    stdout.write('end of input text');
   });
 }
 
