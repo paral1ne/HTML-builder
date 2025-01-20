@@ -1,9 +1,16 @@
-const fs = require('fs');
+const { createReadStream } = require('fs');
 const path = require('path');
+const { stdout } = require('process');
 
-const fileAress = path.join(__dirname, 'text.txt');
-const readStream = fs.createReadStream(fileAress);
+function readFIle(sourcePath) {
+  const filePath = path.join(__dirname, sourcePath);
+  const readStream = createReadStream(filePath, {
+    encoding: 'utf-8',
+  });
 
-readStream.on('data', (chank) => {
-  console.log(String(chank));
-});
+  readStream.on('data', (chunk) => {
+    stdout.write(chunk);
+  });
+}
+
+readFIle('text.txt');
